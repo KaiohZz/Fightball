@@ -10,13 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Fightball"
+config/name="src"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="Fightball"
+project/assembly_name="src"
 
 [rendering]
 
