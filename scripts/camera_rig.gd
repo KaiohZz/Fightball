@@ -6,7 +6,7 @@ extends Node3D
 @export var min_fov := 55.0
 @export var max_fov := 75.0
 @export var zoom_speed := 3.0
-@export var ball: CharacterBody3D
+@export var ball: RigidBody3D
 @export var player_left: CharacterBody3D
 @export var player_right: CharacterBody3D
 

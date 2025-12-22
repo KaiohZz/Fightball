@@ -2,25 +2,33 @@ extends CharacterBody3D
 
 enum KickType {MID, UP, DOWN}
 
-@export var speed := 12.0
+@export var speed := 15.0
 @export var jump_force := 24.0
 @export var kick_force := 22.0
 @export var debug_kick := true
 @onready var mesh: MeshInstance3D = $Visual/MeshInstance3D
+@export var start_position := Vector3.ZERO
 
 var kick_timer := 0.0
 var can_kick := true
-var gravity : float = 4 * ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity : float = 6 * ProjectSettings.get_setting("physics/3d/default_gravity")
 var facing := 1   # 1 = direita, -1 = esquerda
-
+var frozen := false
 
 func _ready():
+	start_position = global_position
+	
 	if mesh.material_override == null:
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = Color.RED
 		mesh.material_override = mat
 
 func _physics_process(delta):
+	if frozen:
+		velocity = Vector3.ZERO
+		move_and_slide()
+		return
+	
 	# Movimento horizontal
 	var dir := Input.get_axis("move_left", "move_right")
 
@@ -93,9 +101,13 @@ func kick():
 
 
 func _try_kick(area: Area3D, direction: Vector3):
+	print("Tentando chutar:", area.name)
 	for body in area.get_overlapping_bodies():
+		print("  Encontrou:", body.name)
 		if body.has_method("apply_kick"):
+			print("  CHUTE APLICADO")
 			body.apply_kick(direction, 2.0)
+
 
 func _visual_kick_feedback(type: KickType):
 	kick_timer = 0.3
@@ -124,3 +136,21 @@ func _set_debug_kicks(state: bool):
 func _set_debug_kick(area: Area3D, state: bool):
 	if area.has_node("DebugMesh"):
 		area.get_node("DebugMesh").visible = state and debug_kick
+
+func set_frozen(value: bool):
+	frozen = value
+	velocity = Vector3.ZERO
+
+func start_reset(duration: float):
+	frozen = true
+
+	var tween := create_tween()
+	tween.tween_property(
+		self,
+		"global_position",
+		start_position,
+		duration
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func end_reset():
+	frozen = false
