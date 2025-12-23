@@ -1,6 +1,6 @@
 extends Area3D
 
-@export var goal_side := "RIGHT" 
+@export var goal_side := "RIGHT"
 
 func _ready():
 	connect("body_entered", _on_body_entered)

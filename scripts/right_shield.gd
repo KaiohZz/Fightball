@@ -1,12 +1,11 @@
 extends MeshInstance3D
 
-@export var max_hp := 100.0
-var hp := max_hp
-
+@export var start_hp := 100.0
 @export var min_damage := 2.0
 @export var max_damage := 100.0
 
-@onready var body := $RightShieldCollider
+@onready var body := $RightShieldCollider/CollisionShape3D
+var hp := start_hp
 
 var flash_time := 0.0
 
@@ -30,8 +29,6 @@ func hit(ball_speed: float):
 	_flash()
 
 	if hp <= 0:
-		body.collision_layer = 0
-		body.collision_mask = 0
 		_destroy()
 
 func _process(delta):
@@ -41,12 +38,10 @@ func _process(delta):
 			_update_visual()
 
 func _destroy():
-	print("ESCUDO DESTRUÍDO - COLISÃO OFF")
 	if body:
-		body.get_parent().remove_child(body)
-		body.queue_free()
+		body.set_deferred("disabled", true)
 
-	queue_free()
+	visible = false
 
 func _flash():
 	flash_time = 0.08
@@ -54,6 +49,16 @@ func _flash():
 		material_override.albedo_color = Color.WHITE
 
 func _update_visual():
-	var ratio : float = clamp(hp / max_hp, 0.0, 1.0)
+	var ratio : float = clamp(hp / start_hp, 0.0, 1.0)
 	if material_override:
 		material_override.albedo_color = Color(1 - ratio, ratio, 0)
+
+func reset_shield():
+	hp = start_hp
+	visible = true
+	flash_time = 0.0
+
+	if body:
+		body.set_deferred("disabled", false)
+
+	_update_visual()

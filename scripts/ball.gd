@@ -46,8 +46,13 @@ func apply_kick(new_dir: Vector3, multiplier := 2.0):
 func start_reset(duration: float):
 	frozen = true
 	freeze = true
+
+	# ZERA COMPLETAMENTE O ESTADO FÍSICO
 	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO
+
 	speed = base_speed
+	direction = Vector3.DOWN
 
 	var tween := create_tween()
 	tween.tween_property(
@@ -58,9 +63,12 @@ func start_reset(duration: float):
 	)
 
 func end_reset():
+	# garante que não sobra impulso
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO
+
 	frozen = false
 	freeze = false
 
-	# relança a bola após o reset
-	direction = Vector3.RIGHT if randf() > 0.5 else Vector3.LEFT
+	# impulso inicial controlado
 	linear_velocity = direction * speed

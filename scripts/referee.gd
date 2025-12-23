@@ -1,7 +1,7 @@
 extends Node3D
 
-@export var reset_duration := 2
-@export var goal_freeze_time := 0.5
+@export var reset_duration := 3
+@export var goal_freeze_time := 1
 
 var resetting := false
 var score_left := 0
@@ -50,6 +50,6 @@ func _end_reset():
 
 	get_tree().call_group("players", "end_reset")
 	get_tree().call_group("ball", "end_reset")
-	get_tree().call_group("goals", "enable_goal")
+	get_tree().call_group("shields", "reset_shield")
 
 	resetting = false
