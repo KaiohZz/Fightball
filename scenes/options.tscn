@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciu7t6sxkpgd4"]
+
+[ext_resource type="Script" uid="uid://dk1atuhrdadae" path="res://scripts/options.gd" id="1_c2u1v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sx3uy"]
+bg_color = Color(0.132714, 0.703522, 0.502071, 1)
+
+[node name="Control" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c2u1v")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sx3uy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 340.0
+offset_top = -74.5
+offset_right = -340.0
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(300, 75)
+theme_override_constants/separation = 10
+
+[node name="Music" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Music"
+
+[node name="Música" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 1.5
+step = 0.001
+value = 0.75
+
+[node name="SFX2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "SFX"
+
+[node name="SFX" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 1.5
+step = 0.001
+value = 0.75
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+text = "Mute"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+offset_left = 100.0
+offset_top = 50.0
+offset_right = 200.0
+offset_bottom = 150.0
+pivot_offset = Vector2(50, 50)
+text = "Voltar"
+
+[connection signal="value_changed" from="VBoxContainer/Música" to="." method="_on_música_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/SFX" to="." method="_on_sfx_value_changed"]
+[connection signal="toggled" from="VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

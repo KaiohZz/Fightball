@@ -1,6 +1,5 @@
-[gd_scene load_steps=60 format=3 uid="uid://c0t4hx140xs3i"]
+[gd_scene load_steps=89 format=3 uid="uid://c0t4hx140xs3i"]
 
-[ext_resource type="Script" uid="uid://uf55ra8gxtsj" path="res://scripts/player.gd" id="1_8rem4"]
 [ext_resource type="Script" uid="uid://y33qupj4tja2" path="res://scripts/ball.gd" id="1_gi7kc"]
 [ext_resource type="Script" uid="uid://c4wljmg3h0pdg" path="res://scripts/camera_rig.gd" id="1_kewym"]
 [ext_resource type="Script" uid="uid://db1g0n44ejbde" path="res://scripts/referee.gd" id="1_st0q7"]
@@ -8,10 +7,30 @@
 [ext_resource type="Script" uid="uid://bcdh0lok83wxb" path="res://scripts/left_shield.gd" id="4_dexii"]
 [ext_resource type="Script" uid="uid://cboglsn1c2kul" path="res://scripts/left_shield_collider.gd" id="5_yd2gm"]
 [ext_resource type="Script" uid="uid://dcd6b4v7bi441" path="res://scripts/left_goal_area.gd" id="6_0hg5s"]
+[ext_resource type="AudioStream" uid="uid://cx4cagxrlbk7o" path="res://assets/sounds/shield_hit.wav" id="7_ko533"]
 [ext_resource type="Script" uid="uid://be5shmtwe0q83" path="res://scripts/right_goal.gd" id="7_yd2gm"]
 [ext_resource type="Script" uid="uid://d128nu2i6fme4" path="res://scripts/right_shield.gd" id="8_0hg5s"]
+[ext_resource type="AudioStream" uid="uid://cle3lsw36hrgi" path="res://assets/sounds/shield_break.wav" id="8_5b0fa"]
 [ext_resource type="Script" uid="uid://7qp25r3jwsk3" path="res://scripts/right_shield_collider.gd" id="9_0hg5s"]
 [ext_resource type="Script" uid="uid://d1vs7c06b6oi6" path="res://scripts/right_goal_area.gd" id="10_jl6nj"]
+[ext_resource type="Script" uid="uid://2jng4q7t4ob0" path="res://scripts/player1.gd" id="12_jl6nj"]
+[ext_resource type="Texture2D" uid="uid://ddlhinc6j1bxr" path="res://assets/sprites/neutralBall.png" id="12_nea6r"]
+[ext_resource type="Script" uid="uid://dmjrpiig0r1w0" path="res://scripts/player2.gd" id="13_e38vs"]
+[ext_resource type="Texture2D" uid="uid://bmg56qwfaqyk7" path="res://assets/sprites/leftHealthBar.png" id="14_t30jk"]
+[ext_resource type="Texture2D" uid="uid://0mq3hv8cpqkb" path="res://assets/sprites/leftProgressBar-export.png" id="15_d4wp7"]
+[ext_resource type="Script" uid="uid://c3ffoeswed4hv" path="res://scripts/canvas_layer.gd" id="15_oc2wl"]
+[ext_resource type="AudioStream" uid="uid://bmbvsmccrbc6u" path="res://assets/sounds/kick.wav" id="15_tcgx4"]
+[ext_resource type="Texture2D" uid="uid://drptkioqunjmp" path="res://assets/sprites/rightHealthBar.png" id="16_3bqjo"]
+[ext_resource type="Script" uid="uid://coxdonvejp6w7" path="res://scripts/left_health_bar.gd" id="16_nea6r"]
+[ext_resource type="AudioStream" uid="uid://b31t2cl132iud" path="res://assets/sounds/hit_wall.wav" id="17_ebg5g"]
+[ext_resource type="Texture2D" uid="uid://dhtupa2bsgf8h" path="res://assets/sprites/rightProgressBar-export.png" id="17_nea6r"]
+[ext_resource type="AudioStream" uid="uid://bhex0d16ac0xm" path="res://assets/sounds/jump.wav" id="18_ko533"]
+[ext_resource type="Script" uid="uid://ch3uulvpvsqec" path="res://scripts/right_health_bar.gd" id="19_drh8o"]
+[ext_resource type="Texture2D" uid="uid://c3iojqw81ci2h" path="res://assets/sprites/speedScore.png" id="21_drh8o"]
+[ext_resource type="Script" uid="uid://dprjpitvgagde" path="res://scripts/speed_score.gd" id="22_uw5rs"]
+[ext_resource type="AudioStream" uid="uid://dn6nbo7fvkume" path="res://assets/sounds/score.wav" id="24_1hlks"]
+[ext_resource type="PackedScene" uid="uid://bhlbm16rx6m3o" path="res://scenes/pause_menu.tscn" id="29_tcgx4"]
+[ext_resource type="AudioStream" uid="uid://cvupmbdu2ls7m" path="res://assets/sounds/goal.wav" id="30_5b0fa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_st0q7"]
 transparency = 1
@@ -93,11 +112,7 @@ bounce = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8rem4"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gi7kc"]
-albedo_color = Color(1, 1, 0, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_8rem4"]
-material = SubResource("StandardMaterial3D_gi7kc")
+[sub_resource type="SphereShape3D" id="SphereShape3D_5b0fa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6c5u0"]
 
@@ -139,13 +154,40 @@ albedo_color = Color(0, 0, 1, 0.294118)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0hg5s"]
 material = SubResource("StandardMaterial3D_yd2gm")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6c5u0"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_jl6nj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddp0b"]
 albedo_color = Color(0, 0, 1, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_vcsse"]
-material = SubResource("StandardMaterial3D_6c5u0")
+[sub_resource type="BoxMesh" id="BoxMesh_t30jk"]
+material = SubResource("StandardMaterial3D_ddp0b")
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_kewym"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_d4wp7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3bqjo"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.294118)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nea6r"]
+material = SubResource("StandardMaterial3D_3bqjo")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_drh8o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uw5rs"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.294118)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_oc2wl"]
+material = SubResource("StandardMaterial3D_uw5rs")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1hlks"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5i7n2"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.294118)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rgw3t"]
+material = SubResource("StandardMaterial3D_5i7n2")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gi7kc"]
 
@@ -157,7 +199,12 @@ background_mode = 2
 sky = SubResource("Sky_kewym")
 tonemap_mode = 2
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nea6r"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_drh8o"]
+
 [node name="stage" type="Node3D" groups=["game"]]
+process_mode = 1
 script = ExtResource("1_st0q7")
 
 [node name="cameraRig" type="Node3D" parent="." node_paths=PackedStringArray("ball", "player_left", "player_right")]
@@ -175,11 +222,11 @@ player_right = NodePath("../player2")
 current = true
 
 [node name="goalLeft" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.25, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.25, 7.5, 0)
 script = ExtResource("3_1hwpr")
 
 [node name="LeftShield" type="MeshInstance3D" parent="goalLeft" groups=["shields"]]
-transform = Transform3D(0.5, 0, 0, 0, 5.5, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 7, 0, 0, 0, 10, 4.25, 0, 0)
 mesh = SubResource("BoxMesh_1hwpr")
 surface_material_override/0 = SubResource("StandardMaterial3D_dexii")
 script = ExtResource("4_dexii")
@@ -193,25 +240,31 @@ script = ExtResource("5_yd2gm")
 shape = SubResource("BoxShape3D_vcsse")
 
 [node name="LeftGoalArea" type="Area3D" parent="goalLeft"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("6_0hg5s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="goalLeft/LeftGoalArea"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -4.5, 0, 0)
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -10, 0, 0)
 shape = SubResource("BoxShape3D_2so7o")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="goalLeft/LeftGoalArea"]
-transform = Transform3D(5, 0, 0, 0, 10, 0, 0, 0, 10, -1, 0, 0)
+transform = Transform3D(5, 0, 0, 0, 20, 0, 0, 0, 10, -2, 0, 0)
 mesh = SubResource("BoxMesh_e38vs")
 
+[node name="hit" type="AudioStreamPlayer" parent="goalLeft"]
+stream = ExtResource("7_ko533")
+
+[node name="break" type="AudioStreamPlayer" parent="goalLeft"]
+stream = ExtResource("8_5b0fa")
+
 [node name="goalRight" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.25, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.25, 7.5, 0)
 script = ExtResource("7_yd2gm")
 
 [node name="RightShield" type="MeshInstance3D" parent="goalRight" groups=["shields"]]
-transform = Transform3D(0.5, 0, 0, 0, 5.5, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 7, 0, 0, 0, 10, -4.25, 0, 0)
 mesh = SubResource("BoxMesh_jl6nj")
 surface_material_override/0 = SubResource("StandardMaterial3D_e38vs")
 script = ExtResource("8_0hg5s")
@@ -225,21 +278,27 @@ script = ExtResource("9_0hg5s")
 shape = SubResource("ConcavePolygonShape3D_1hwpr")
 
 [node name="RightGoalArea" type="Area3D" parent="goalRight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("10_jl6nj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="goalRight/RightGoalArea"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 4.5, 0, 0)
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 10, 0, 0)
 shape = SubResource("BoxShape3D_1hwpr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="goalRight/RightGoalArea"]
-transform = Transform3D(5, 0, 0, 0, 10, 0, 0, 0, 10, 1, 0, 0)
+transform = Transform3D(5, 0, 0, 0, 20, 0, 0, 0, 10, 1, 0, 0)
 mesh = SubResource("BoxMesh_5sts7")
 
+[node name="hit" type="AudioStreamPlayer" parent="goalRight"]
+stream = ExtResource("7_ko533")
+
+[node name="break" type="AudioStreamPlayer" parent="goalRight"]
+stream = ExtResource("8_5b0fa")
+
 [node name="LeftFloorWall" type="MeshInstance3D" parent="." groups=["walls"]]
-transform = Transform3D(0.5, 0, 0, 0, 2.5, 0, 0, 0, 10, -25.25, 1, 0)
+transform = Transform3D(1.99726, -0.314016, 0, 0.104672, 5.99178, 0, 0, 0, 10, -21, 1, 0)
 mesh = SubResource("BoxMesh_kewym")
 skeleton = NodePath("")
 
@@ -251,7 +310,7 @@ collision_mask = 0
 shape = SubResource("ConcavePolygonShape3D_6c5u0")
 
 [node name="LeftCeilingWall" type="MeshInstance3D" parent="." groups=["walls"]]
-transform = Transform3D(0.5, 0, 0, 0, 2.5, 0, 0, 0, 10, -25.25, 9, 0)
+transform = Transform3D(2, 0, 0, 0, 6, 0, 0, 0, 10, -21, 14, 0)
 mesh = SubResource("BoxMesh_2so7o")
 skeleton = NodePath("")
 
@@ -260,10 +319,11 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LeftCeilingWall/StaticBody3D"]
+transform = Transform3D(0.99863, 0.052336, 0, -0.052336, 0.99863, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_st0q7")
 
 [node name="RightFloorWall" type="MeshInstance3D" parent="." groups=["walls"]]
-transform = Transform3D(0.5, 0, 0, 0, 2.5, 0, 0, 0, 10, 25.25, 1, 0)
+transform = Transform3D(1.99726, 0.314016, 0, -0.104672, 5.99178, 0, 0, 0, 10, 21, 1, 0)
 mesh = SubResource("BoxMesh_kewym")
 skeleton = NodePath("")
 
@@ -275,7 +335,7 @@ collision_mask = 0
 shape = SubResource("ConcavePolygonShape3D_6c5u0")
 
 [node name="RightCeilingWall" type="MeshInstance3D" parent="." groups=["walls"]]
-transform = Transform3D(0.5, 0, 0, 0, 2.5, 0, 0, 0, 10, 25.25, 9, 0)
+transform = Transform3D(1.99726, -0.314016, 0, 0.104672, 5.99178, 0, 0, 0, 10, 21, 14, 0)
 mesh = SubResource("BoxMesh_2so7o")
 skeleton = NodePath("")
 
@@ -287,7 +347,7 @@ collision_mask = 0
 shape = SubResource("ConcavePolygonShape3D_st0q7")
 
 [node name="floor" type="MeshInstance3D" parent="." groups=["walls"]]
-transform = Transform3D(50, 0, 0, 0, 0.5, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(40, 0, 0, 0, 2, 0, 0, 0, 10, 0, -1, 0)
 mesh = SubResource("BoxMesh_knoaa")
 metadata/_edit_group_ = true
 
@@ -300,7 +360,7 @@ physics_material_override = SubResource("PhysicsMaterial_gi7kc")
 shape = SubResource("ConcavePolygonShape3D_knoaa")
 
 [node name="ceiling" type="MeshInstance3D" parent="." groups=["walls"]]
-transform = Transform3D(50, 0, 0, 0, 0.5, 0, 0, 0, 10, 0, 10, 0)
+transform = Transform3D(40, 0, 0, 0, 2, 0, 0, 0, 10, 0, 16, 0)
 mesh = SubResource("BoxMesh_knoaa")
 metadata/_edit_group_ = true
 
@@ -313,7 +373,7 @@ physics_material_override = SubResource("PhysicsMaterial_kewym")
 shape = SubResource("ConcavePolygonShape3D_8rem4")
 
 [node name="background" type="MeshInstance3D" parent="."]
-transform = Transform3D(50, 0, 0, 0, -2.18557e-08, -10.5, 0, 0.5, -4.5897e-07, 0, 5, -5)
+transform = Transform3D(45, 0, 0, 0, -2.18557e-08, -18, 0, 0.5, -7.86805e-07, 0, 7.5, -5)
 mesh = SubResource("BoxMesh_knoaa")
 metadata/_edit_group_ = true
 
@@ -342,9 +402,27 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("SphereShape3D_8rem4")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ball/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CylinderMesh_8rem4")
+[node name="Sprite3D" type="Sprite3D" parent="ball"]
+transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("12_nea6r")
+
+[node name="kick" type="AudioStreamPlayer" parent="ball"]
+stream = ExtResource("15_tcgx4")
+bus = &"SFX"
+
+[node name="bounce" type="AudioStreamPlayer" parent="ball"]
+stream = ExtResource("17_ebg5g")
+bus = &"SFX"
+
+[node name="BounceArea" type="Area3D" parent="ball"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ball/BounceArea"]
+shape = SubResource("SphereShape3D_5b0fa")
 
 [node name="player1" type="CharacterBody3D" parent="." groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 0)
@@ -352,7 +430,7 @@ collision_mask = 20
 axis_lock_linear_z = true
 axis_lock_angular_z = true
 platform_floor_layers = 4278190081
-script = ExtResource("1_8rem4")
+script = ExtResource("12_jl6nj")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player1"]
@@ -408,19 +486,70 @@ debug_color = Color(0, 0.6, 1, 1)
 transform = Transform3D(-1.5, -2.59808, 0, 2.59808, -1.5, 0, 0, 0, 3, 1, -0.5, 0)
 mesh = SubResource("CapsuleMesh_0hg5s")
 
+[node name="jump" type="AudioStreamPlayer" parent="player1"]
+stream = ExtResource("18_ko533")
+bus = &"SFX"
+
 [node name="player2" type="CharacterBody3D" parent="." groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 0)
-visible = false
+collision_mask = 20
+axis_lock_linear_z = true
+axis_lock_angular_z = true
+platform_floor_layers = 4278190081
+script = ExtResource("13_e38vs")
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="player2"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 0.01, 0, 0, 0)
-mesh = SubResource("BoxMesh_vcsse")
-skeleton = NodePath("../CollisionShape3D")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player2"]
-shape = SubResource("CylinderShape3D_kewym")
-disabled = true
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_jl6nj")
+
+[node name="Visual" type="Node3D" parent="player2"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="player2/Visual"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = SubResource("BoxMesh_t30jk")
+
+[node name="KickRoot" type="Node3D" parent="player2/Visual"]
+
+[node name="KickMid" type="Area3D" parent="player2/Visual/KickRoot"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="player2/Visual/KickRoot/KickMid"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1, 0, 0)
+shape = SubResource("BoxShape3D_d4wp7")
+
+[node name="DebugMesh" type="MeshInstance3D" parent="player2/Visual/KickRoot/KickMid"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1, 0, 0)
+mesh = SubResource("BoxMesh_nea6r")
+
+[node name="KickDown" type="Area3D" parent="player2/Visual/KickRoot"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="player2/Visual/KickRoot/KickDown"]
+transform = Transform3D(1.02606, -2.81908, 0, 2.81908, 1.02606, 0, 0, 0, 3, 1, 0.5, 0)
+shape = SubResource("CapsuleShape3D_drh8o")
+
+[node name="DebugMesh" type="MeshInstance3D" parent="player2/Visual/KickRoot/KickDown"]
+transform = Transform3D(1.02606, -2.81908, 0, 2.81908, 1.02606, 0, 0, 0, 3, 1, 0.5, 0)
+mesh = SubResource("CapsuleMesh_oc2wl")
+
+[node name="KickUp" type="Area3D" parent="player2/Visual/KickRoot"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="player2/Visual/KickRoot/KickUp"]
+transform = Transform3D(-1.5, -2.59808, 0, 2.59808, -1.5, 0, 0, 0, 3, 1, -0.5, 0)
+shape = SubResource("CapsuleShape3D_1hlks")
+
+[node name="DebugMesh" type="MeshInstance3D" parent="player2/Visual/KickRoot/KickUp"]
+transform = Transform3D(-1.5, -2.59808, 0, 2.59808, -1.5, 0, 0, 0, 3, 1, -0.5, 0)
+mesh = SubResource("CapsuleMesh_rgw3t")
+
+[node name="jump" type="AudioStreamPlayer" parent="player2"]
+stream = ExtResource("18_ko533")
+bus = &"SFX"
 
 [node name="light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 8, 10)
@@ -429,3 +558,119 @@ shadow_blur = 0.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6c5u0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("15_oc2wl")
+
+[node name="leftHealthBar" type="TextureProgressBar" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -545.0
+offset_top = 40.0
+offset_right = -435.0
+offset_bottom = 55.0
+grow_horizontal = 2
+scale = Vector2(4.5, 4.5)
+size_flags_horizontal = 4
+fill_mode = 1
+texture_under = ExtResource("14_t30jk")
+texture_progress = ExtResource("15_d4wp7")
+script = ExtResource("16_nea6r")
+
+[node name="rightHealthBar" type="TextureProgressBar" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 51.0
+offset_top = 40.0
+offset_right = 161.0
+offset_bottom = 55.0
+grow_horizontal = 2
+scale = Vector2(4.5, 4.5)
+texture_under = ExtResource("16_3bqjo")
+texture_progress = ExtResource("17_nea6r")
+script = ExtResource("19_drh8o")
+
+[node name="speed_score" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("CanvasItemMaterial_nea6r")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -112.0
+offset_top = 30.0
+offset_right = -62.0
+offset_bottom = 60.0
+grow_horizontal = 2
+scale = Vector2(4.5, 4.5)
+texture = ExtResource("21_drh8o")
+script = ExtResource("22_uw5rs")
+
+[node name="speedometer" type="Label" parent="CanvasLayer/speed_score"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_left = -9.44444
+offset_top = -7.10111
+offset_right = 9.55556
+offset_bottom = 10.8889
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(9.5, 11.5)
+text = "00"
+label_settings = SubResource("LabelSettings_drh8o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scoreLeft" type="Label" parent="CanvasLayer/speed_score"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 4.0
+offset_top = 11.0
+offset_right = 14.0
+offset_bottom = 34.0
+pivot_offset = Vector2(5, 12.5)
+text = "0"
+
+[node name="scoreRight" type="Label" parent="CanvasLayer/speed_score"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 37.0
+offset_top = 11.0
+offset_right = 47.0
+offset_bottom = 34.0
+pivot_offset = Vector2(5, 12.5)
+text = "0"
+
+[node name="gol" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -376.0
+offset_top = -74.0
+offset_right = 385.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(380.5, 75)
+theme_override_font_sizes/font_size = 100
+text = "!! GOOOL !!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pause Menu" parent="CanvasLayer" instance=ExtResource("29_tcgx4")]
+
+[node name="score" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24_1hlks")
+bus = &"SFX"
+
+[node name="goal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("30_5b0fa")
+bus = &"SFX"

@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 enum KickType {MID, UP, DOWN}
+enum BallOwner { NONE, LEFT, RIGHT }
 
 @export var speed := 15.0
 @export var jump_force := 24.0
@@ -106,10 +107,11 @@ func _try_kick(area: Area3D, direction: Vector3):
 		print("  Encontrou:", body.name)
 		if body.has_method("apply_kick"):
 			print("  CHUTE APLICADO")
-			body.apply_kick(direction, 2.0)
+			body.apply_kick(direction, 2.0, BallOwner.LEFT)
 
 
-func _visual_kick_feedback(type: KickType):
+
+func _visual_kick_feedback(type: KickType)
 	kick_timer = 0.3
 	
 	match type:
