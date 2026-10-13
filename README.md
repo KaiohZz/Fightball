@@ -12,7 +12,15 @@ Two-player local game developed in **Godot 4** with **GDScript** during a vacati
 
 Fightball is a personal game project built from scratch in Godot. It was developed over a vacation period to practice the full cycle of making a small game: designing scenes, scripting gameplay in GDScript, handling player input and organizing the project's assets.
 
-<!-- TODO: add 2-3 sentences about the game itself: what the goal of a match is, how a round is won, and what makes it fun. -->
+The game is inspired by **Lethal League**. Two players share an arena with a ball that **ignores gravity**, and the goal is to send it into the opponent's goal. Every time a player hits the ball it gets **faster**, so rallies become more and more intense and a single mistake can decide the point.
+
+### Key mechanics
+
+- Local **two-player** matches on the same keyboard
+- A ball that is **not affected by gravity**
+- **Two goals**, one on each side of the arena
+- Ball speed that **increases with every hit**
+- Player actions: movement, jump and kick
 
 ---
 
